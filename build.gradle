@@ -9,6 +9,14 @@ java {
 	sourceCompatibility = '11'
 }
 
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'com.example.demo.DemoApplication'
+		)
+	}
+}
+
 repositories {
 	mavenCentral()
 }
@@ -21,4 +29,19 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task fatJar(type: Jar) {
+
+	manifest {
+		attributes 'Main-Class': "com.example.demo.DemoApplication"
+	}
+
+	archiveBaseName = "${rootProject.name}" + "-all"
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	with jar
 }

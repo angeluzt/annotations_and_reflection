@@ -9,7 +9,7 @@ import com.example.myspringboot.SpringApplication;
 import java.io.IOException;
 
 @SpringBootApplication
-@Port(port = 8083)
+@Port(port = 8081)
 public class DemoApplication {
 	public static void main(String[] args) throws IOException {
 		String annotationValue = TestController.class.getAnnotation(MyCustomAnnotation.class).value();
